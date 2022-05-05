@@ -60,6 +60,7 @@ usethis::use_pipe()
 # package-level documentation
 usethis::use_package_doc()
 
+
 # Set CI
 # _GitHub
 usethis::use_github_action_check_standard()
@@ -95,5 +96,3 @@ pkgdown::build_site()
 # build the tar.gz to share with others
 devtools::build()
 devtools::build_readme()
-```
-
