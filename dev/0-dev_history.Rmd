@@ -94,5 +94,6 @@ pkgdown::build_site()
 
 # build the tar.gz to share with others
 devtools::build()
+devtools::build_readme()
 ```
 

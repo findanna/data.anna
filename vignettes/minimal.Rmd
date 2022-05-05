@@ -25,9 +25,10 @@ library(data.anna)
 -->
 
 
-# My function
+# extract_six_from_col
 
-```{r examples-my_fun}
-my_fun()
+```{r examples-extract_six_from_col}
+extract_six_from_col(dataset = datasets::mtcars, column = "mpg")
+extract_six_from_col(squirrels, "lat") 
 ```
 

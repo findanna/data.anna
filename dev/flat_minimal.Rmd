@@ -7,32 +7,86 @@ editor_options:
 
 ```{r development, include=FALSE}
 library(testthat)
+library(dplyr)
+library(tidyverse)
+library(datasets)
+
+usethis::use_data_raw()
+
+squirrels <- readr::read_csv("data-raw/squirrels.csv") %>%
+  filter(primary_fur_color == "Gray") %>%
+  select(primary_fur_color, age, lat)
+
+usethis::use_data(squirrels, overwrite = TRUE)
+usethis::use_r("squirrels")
+# usethis::use_data(mtcars, overwrite = TRUE)
+# usethis::use_r("mtcars")
+
+
+dir.create(here::here("inst"))
+write_csv(x = squirrels, "inst/squirrels.csv")
+
+squirrels %>%
+  select(age) %>%
+  pull() %>%
+  sort(.,decreasing = TRUE) %>%
+  tibble(age = .) %>%
+  slice_head(n = 6)
+
+data("mtcars")
+
+# extract_six_from_col <- function(dataset = mtcars, column = "mpg"){
+#   dataset %>%
+#     select(all_of(column)) %>%
+#     pull() %>%
+#     sort(.,decreasing = TRUE) %>%
+#     tibble(column = .) %>%
+#     slice_head(n = 6) %>%
+#     pull()
+# }
+# 
+# extract_six_from_col(dataset = mtcars, column = "mpg")
+
 ```
 
 <!--
  You need to run the 'description' chunk in the '0-dev_history.Rmd' file before continuing your code there.
 -->
 
-# My function
+# extract_six_from_col
 
-```{r function-my_fun}
-#' my_fun Title
-#'
-#' @return 1
+```{r function-extract_six_from_col}
+#' extract_six_from_col A function to sort decreasing and extract the first 6 elements of a given column
+#' @param dataset  dataset given to extract a column from (type = tibble, data.frame)
+#' @param column column to sort and extract the first 6 elements from (type = numeric, character)
+#' @importFrom dplyr select all_of pull slice_head
+#' @importFrom tibble tibble
+#' @return A data frame when the column is numeric
 #' @export
 #'
 #' @examples
-my_fun <- function() {
-  1
+extract_six_from_col <- function(dataset = datasets::mtcars, column = "mpg"){
+  dataset %>%
+    select(all_of(column)) %>%
+    pull() %>%
+    sort(decreasing = TRUE) %>%
+    tibble() %>%
+    slice_head(n = 6) %>%
+    pull()
 }
+
 ```
 
-```{r examples-my_fun}
-my_fun()
+```{r examples-extract_six_from_col}
+extract_six_from_col(dataset = datasets::mtcars, column = "mpg")
+extract_six_from_col(squirrels, "lat") 
 ```
 
-```{r tests-my_fun}
-test_that("my_fun works", {
+```{r tests-extract_six_from_col}
+test_that("extract_six_from_col works", {
+  expect_length(extract_six_from_col(dataset = mtcars, column = "mpg"), 6)
+  expect_type(extract_six_from_col(dataset = mtcars, column = "mpg"), "double")
+  expect_error(extract_six_from_col(dataset = mtcars, column = "toto"))
 
 })
 ```
