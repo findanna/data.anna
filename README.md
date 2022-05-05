@@ -14,8 +14,25 @@ You can install the development version of data.anna from
 [GitHub](https://github.com/) with:
 
 ``` r
-# install.packages("devtools")
+install.packages("devtools")
+#> Installing package into '/usr/local/lib/R/site-library'
+#> (as 'lib' is unspecified)
 devtools::install_github("findanna/data.anna")
+#> Downloading GitHub repo findanna/data.anna@HEAD
+#> tidyselect (1.1.1 -> 1.1.2) [CRAN]
+#> generics   (0.1.1 -> 0.1.2) [CRAN]
+#> dplyr      (1.0.7 -> 1.0.9) [CRAN]
+#> Installing 3 packages: tidyselect, generics, dplyr
+#> Installing packages into '/usr/local/lib/R/site-library'
+#> (as 'lib' is unspecified)
+#> * checking for file ‘/tmp/RtmpF8vMUC/remotes23805d9113fc/findanna-data.anna-8b5b7e4/DESCRIPTION’ ... OK
+#> * preparing ‘data.anna’:
+#> * checking DESCRIPTION meta-information ... OK
+#> * checking for LF line-endings in source and make files and shell scripts
+#> * checking for empty or unneeded directories
+#> * building ‘data.anna_0.0.0.9000.tar.gz’
+#> Installing package into '/usr/local/lib/R/site-library'
+#> (as 'lib' is unspecified)
 ```
 
 ## Example
@@ -24,32 +41,8 @@ This is a basic example which shows you how to solve a common problem:
 
 ``` r
 library(data.anna)
-## basic example code
+extract_six_from_col(dataset = datasets::mtcars, column = "mpg")
+#> [1] 33.9 32.4 30.4 30.4 27.3 26.0
+extract_six_from_col(squirrels, "lat") 
+#> [1] 40.79942 40.79925 40.79920 40.79898 40.79885 40.79876
 ```
-
-What is special about using `README.Rmd` instead of just `README.md`?
-You can include R chunks like so:
-
-``` r
-summary(cars)
-#>      speed           dist       
-#>  Min.   : 4.0   Min.   :  2.00  
-#>  1st Qu.:12.0   1st Qu.: 26.00  
-#>  Median :15.0   Median : 36.00  
-#>  Mean   :15.4   Mean   : 42.98  
-#>  3rd Qu.:19.0   3rd Qu.: 56.00  
-#>  Max.   :25.0   Max.   :120.00
-```
-
-You’ll still need to render `README.Rmd` regularly, to keep `README.md`
-up-to-date. `devtools::build_readme()` is handy for this. You could also
-use GitHub Actions to re-render `README.Rmd` every time you push. An
-example workflow can be found here:
-<https://github.com/r-lib/actions/tree/v1/examples>.
-
-You can also embed plots, for example:
-
-<img src="man/figures/README-pressure-1.png" width="100%" />
-
-In that case, don’t forget to commit and push the resulting figure
-files, so they display on GitHub and CRAN.
